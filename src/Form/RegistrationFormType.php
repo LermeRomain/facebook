@@ -22,16 +22,11 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('firstName')
             ->add('lastName')
-/*            ->add('birthDate', DateType::class, array(
-                'widget' => 'single_text',
-                // this is actually the default format for single_text
-                'format' => 'dd-MM-yyyy',
-            ))*/
+            ->add('birthDate', DateType::class)
             ->add('address')
             ->add('city')
             ->add('alternanceJob')
             ->add('groupName')
-            ->add('birthDate', DateType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -56,8 +51,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
