@@ -31,6 +31,7 @@ class RegistrationFormType extends AbstractType
             ->add('city')
             ->add('alternanceJob')
             ->add('groupName')
+            ->add('birthDate', DateType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
