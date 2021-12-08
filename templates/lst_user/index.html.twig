@@ -1,19 +1,18 @@
 {% extends 'composants/navbar.html.twig' %}
-{% block title %}Feed{% endblock %}
 
-
+{% block title %}Hello LstUserController!{% endblock %}
 
 {% block body %}
-    {% for post in posts %}
+    {% for lstUser in lstUsers %}
         <div class="list-group">
             <div class="container col-6">
                 <a href="#" class="list-group-item list-group-item-action" aria-current="true" style="margin-top: 50px">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ post.name }}</h5>
-                        <small>{{ post.createdAt|date('d-m-Y') }}</small>
+                        <h5 class="mb-1">{{ lstUser.firstName }} - {{ lstUser.lastName }}</h5>
+                        <small>{{ lstUser.birthDate|date('d-m-Y') }}</small>
                     </div>
-                    <p class="mb-1">{{ post.name }}</p>
-                    <small>And some small print.</small>
+                    <p class="mb-1">{{ lstUser.alternanceJob }}</p>
+                    <small>{{ lstUser.city }}</small>
                 </a>
             </div>
         </div>

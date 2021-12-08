@@ -18,7 +18,7 @@
 <body>
 <nav class="navbar navbar-light bg-light fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Fakebook</a>
+        <a class="navbar-brand" href="{{ path('feed') }}">Fakebook</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{ path('feed') }}">Home</a>
                     </li>
                     {#<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button"
@@ -51,6 +51,9 @@
                     {% if app.user %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('lst_user') }}">Lst User</a>
                         </li>
                     {% endif %}
                 </ul>
