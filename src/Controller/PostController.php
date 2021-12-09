@@ -39,6 +39,9 @@ class PostController extends AbstractController
             $doctrine = $this->getDoctrine()->getManager();
             $doctrine->persist($post);
             $doctrine->flush();
+
+            $this->addFlash('message', 'Votre post a bien été publié');
+            return $this->redirectToRoute('feed');
         }
         return $this->render('post/index.html.twig',['postForm'=>$form->createView()]);
     }
