@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class PostController extends AbstractController
 {
@@ -22,13 +23,23 @@ class PostController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/post/new", name="ajout_post")
      */
     public function ajoutPost(Request $request)
     {
         $post = new Post();
 
+
         $form = $this->createForm(AjoutPostFormType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $post->setUser($this->getUser());
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->persist($post);
+            $doctrine->flush();
+        }
         return $this->render('post/index.html.twig',['postForm'=>$form->createView()]);
     }
 }
