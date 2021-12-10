@@ -15,7 +15,7 @@ class AjoutPostFormType extends AbstractType
     {
         $builder
             ->add('name', TextareaType::class)
-            ->add('Publier', SubmitType::class)
+            ->add('publier', SubmitType::class)
         ;
     }
 
