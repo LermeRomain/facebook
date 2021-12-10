@@ -14,7 +14,7 @@ class FeedController extends AbstractController
      */
     public function index(): Response
     {
-        $posts = $this->getDoctrine()->getRepository(Post::class)->findAll();
+        $posts = $this->getDoctrine()->getRepository(Post::class)->findBY(array(),['id'=>'DESC']);
         return $this->render('feed/index.html.twig', [
             'posts' => $posts,
         ]);
