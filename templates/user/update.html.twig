@@ -1,0 +1,31 @@
+{% extends 'composants/navbar.html.twig' %}
+
+{% block title %}{{ app.user.firstName }} {{ app.user.lastName }}{% endblock %}
+
+{% block body %}
+    <div style=" margin-top: 5rem; padding: 2rem " class="marginDiv">
+        <h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
+
+        <div class="container-fluid row">
+            <div class="container col-4">
+                <h1>Modifier mes informations</h1>
+
+                {{ form_start(updateUserForm) }}
+                {{ form_row(updateUserForm.email) }}
+                {{ form_row(updateUserForm.firstName) }}
+                {{ form_row(updateUserForm.lastName) }}
+            </div>
+            <div class="container col-4">
+                {{ form_row(updateUserForm.birthDate) }}
+                {{ form_row(updateUserForm.address) }}
+                {{ form_row(updateUserForm.city) }}
+                {{ form_row(updateUserForm.alternanceJob) }}
+                {{ form_row(updateUserForm.groupName) }}
+            </div>
+        </div>
+        <div class="container offset-7">
+            <button type="submit" class="btn btn-primary btn-lg">Valdier</button>
+            {{ form_end(updateUserForm) }}
+        </div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'composants/navbar.html.twig' %}
+
+{% block title %}{{ app.user.firstName }} {{ app.user.lastName }}{% endblock %}
+
+{% block body %}
+    <div style=" margin-top: 5rem; padding: 2rem " class="marginDiv">
+        <h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
+        <a class="btn btn-outline-success me-2" type="button" href="{{ path('update') }}">Modifier</a>
+
+        {#
+        <img src="{{ asset("build/images/illustration-sans-titre-61da157acba2a474999515.png")}}" alt={{ app.user.imageName }}>
+#}
+
+        {% for post in posts %}
+            <div class="list-group">
+                <div class="container col-6">
+                    <a href="#" class="list-group-item list-group-item-action" aria-current="true" style="margin-top: 50px">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ post.user.firstName }}</h5>
+                            <small>{{ post.createdAt|date('d-m-Y') }}</small>
+                        </div>
+                        <p class="mb-1">{{ post.name }}</p>
+                        <small>{{ post.user.city }}</small>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

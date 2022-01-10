@@ -29,6 +29,7 @@ class PostController extends AbstractController
     public function ajoutPost(Request $request)
     {
         $post = new Post();
+        $post->setCreatedAt(date_create('now'));
 
 
         $form = $this->createForm(AjoutPostFormType::class, $post);
