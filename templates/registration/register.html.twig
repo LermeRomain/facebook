@@ -3,9 +3,22 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="container-fluid row">
-        <div class="container col-4">
-            <h1>Register</h1>
+        {% apply inline_css %}
+<html>
+<head>
+    <style>
+        .btn-outline {
+            color: #F57C47;
+            border: 1px solid #F57C47;
+        }
+    </style>
+</head>
+<div class="container">
+    <h1>S'inscrire</h1>
+
+    <div class="container row">
+
+        <div class=" col-4">
 
             {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.email) }}
@@ -14,21 +27,23 @@
             }) }}
             {{ form_row(registrationForm.firstName) }}
             {{ form_row(registrationForm.lastName) }}
-        </div>
-        <div class="container col-4">
+            {{ form_row(registrationForm.imageFile, {'attr': {'class': 'form-control'}}) }}
             {{ form_row(registrationForm.birthDate) }}
+        </div>
+        <div class=" col-4">
             {{ form_row(registrationForm.address) }}
             {{ form_row(registrationForm.city) }}
             {{ form_row(registrationForm.alternanceJob) }}
             {{ form_row(registrationForm.groupName) }}
             {{ form_row(registrationForm.agreeTerms) }}
+            <button type="submit" class="btn btn-outline btn-lg">Register</button>
         </div>
     </div>
-    <div class="container offset-7">
-        <button type="submit" class="btn btn-primary btn-lg">Register</button>
         {{ form_end(registrationForm) }}
-    </div>
+</div>
 
+
+{% endapply %}
 
 
 {% endblock %}

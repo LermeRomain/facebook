@@ -14,29 +14,32 @@
                 background-color: black;
                 color: white;
             }
+            .btn-outline {
+                color: #F57C47;
+                border: 1px solid #F57C47;
+            }
         </style>
     </head>
-    <div style=" margin-top: 5rem; padding: 2rem " class="marginDiv">
+    <div style=" margin-top: 5rem; padding: 2rem " class=" container marginDiv">
         {{ form_start(updateUserForm) }}
-        <div class="container-fluid row">
-            <div class="container col-4">
-                <h1>Modifier mes informations</h1>
+        <h1>Modifier mes informations</h1>
+        <div class="container row">
+            <div class="col-6">
                 {{ form_row(updateUserForm.email) }}
                 {{ form_row(updateUserForm.firstName) }}
                 {{ form_row(updateUserForm.lastName) }}
-                {{ form_row(updateUserForm.imageFile, { 'attr': {'class': 'form-control'}}) }}
-
-            </div>
-            <div class="container col-4">
                 {{ form_row(updateUserForm.birthDate) }}
                 {{ form_row(updateUserForm.address) }}
                 {{ form_row(updateUserForm.city) }}
+
+            </div>
+            <div class="col-6">
+
                 {{ form_row(updateUserForm.alternanceJob) }}
                 {{ form_row(updateUserForm.groupName) }}
+                <br/>
+                <button type="submit" class="btn btn-outline btn-lg">Valdier</button>
             </div>
-        </div>
-        <div class="container offset-7">
-            <button type="submit" class="btn btn-primary btn-lg">Valdier</button>
         </div>
         {{ form_end(updateUserForm) }}
 

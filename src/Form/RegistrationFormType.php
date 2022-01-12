@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -24,23 +25,40 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('imageFile', VichImageType::class)
-            ->add('birthDate', DateType::class)
-            ->add('address')
-            ->add('city')
-            ->add('alternanceJob')
+            ->add('email', TextType::class, [
+                'label' => 'Adresse mail',
+            ])
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom',
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom',
+            ])
+            /*->add('imageFile', VichImageType::class)*/
+            ->add('birthDate', DateType::class, [
+                'label' => "Date d'anniversaire",
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse de domicile',
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+            ])
+            ->add('alternanceJob', TextType::class, [
+                'label' => 'Alternance',
+            ])
             ->add('groupName', EntityType::class, [
                 'class' => Group::class,
+                'label' => 'Promotion',
                 'choice_label' => 'name',
             ])
+            ->add('imageFile', VichImageType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'En cochant vous accepté les Conditions Générales',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devriez accepter les Conditions Générales',
                     ]),
                 ],
             ])
