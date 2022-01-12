@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Group;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -16,16 +18,17 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
             ->add('firstName')
             ->add('lastName')
+            /*->add('imageFile', VichImageType::class)*/
             ->add('birthDate', DateType::class)
             ->add('address')
             ->add('city')
             ->add('alternanceJob')
-            ->add('imageFile', VichImageType::class)
-            ->add('groupName', ChoiceType::class)
+            ->add('groupName', EntityType::class, [
+                'class' => Group::class,
+                'choice_label' => 'name',
+            ])
         ;
     }
 

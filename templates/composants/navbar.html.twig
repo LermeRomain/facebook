@@ -25,7 +25,8 @@
         </button>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><a href="{{ path('user') }}">{{ app.user.firstName }}</a></h5>
+                <img src="{{ asset("images/" ~ app.user.imageName)}}" alt={{ app.user.imageName }} width="20%">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><a href="{{ path('user') }}">{{ app.user.firstName }} {{ app.user.lastName }}</a></h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
             </div>
@@ -51,6 +52,9 @@
                     {% if app.user %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('images_index') }}">Images</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ path('lst_user') }}">Lst User</a>

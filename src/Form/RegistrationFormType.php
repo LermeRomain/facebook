@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Group;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,6 +17,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 
 class RegistrationFormType extends AbstractType
 {
@@ -29,7 +32,10 @@ class RegistrationFormType extends AbstractType
             ->add('address')
             ->add('city')
             ->add('alternanceJob')
-            ->add('groupName', ChoiceType::class)
+            ->add('groupName', EntityType::class, [
+                'class' => Group::class,
+                'choice_label' => 'name',
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

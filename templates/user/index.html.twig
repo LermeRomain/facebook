@@ -3,27 +3,120 @@
 {% block title %}{{ app.user.firstName }} {{ app.user.lastName }}{% endblock %}
 
 {% block body %}
+    {% apply inline_css %}
+    <html>
+<head>
+    <style>
+        .cadre {
+            width: 200px;
+        }
+        .cadre > a > img {
+            border-radius: 100px;
+        }
+        .btn-outline {
+            color: #F57C47;
+            border: 1px solid #F57C47;
+        }
+        .violet {
+            color: #8B9DF3;
+            border: 1px solid #8B9DF3;
+        }
+        .align {
+            margin-top: 38px;
+        }
+        .post {
+            background-color: rgb(245, 124, 71, 30%);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        .btn-post {
+            background-color: #F57C47;
+            color: white;
+        }
+        .marginTop {
+            margin-top: 2rem;
+        }
+        .photos {
+            padding: 0;
+        }
+        .photo:hover {
+            transition: 0.2s;
+            opacity: 30%;
+        }
+    </style>
+</head>
     <div style=" margin-top: 5rem; padding: 2rem " class="marginDiv">
-        <h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
-        <a class="btn btn-outline-success me-2" type="button" href="{{ path('update') }}">Modifier</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
+                    <figure class="cadre">
+                        <a href="">
+                            <img src="{{ asset("images/" ~ app.user.imageName)}}" alt={{ app.user.imageName }} width="100%">
+                        </a>
+                    </figure>
+                        {{ form_start(avatar) }}
+                                {{ form_row(avatar.imageFile, {'attr': {'class': 'form-control'}}) }}
 
-        {#
-        <img src="{{ asset("build/images/illustration-sans-titre-61da157acba2a474999515.png")}}" alt={{ app.user.imageName }}>
-#}
+                                <button type="submit" class="btn btn-outline violet">Valider</button>
+                        {{ form_end(avatar) }}
+                    <hr/>
+                    <h3>Options</h3>
+                    <a class="btn btn-outline me-2" type="button" href="{{ path('update') }}">Modifier mes informations</a>
+                    <br/>
 
-        {% for post in posts %}
-            <div class="list-group">
-                <div class="container col-6">
-                    <a href="#" class="list-group-item list-group-item-action" aria-current="true" style="margin-top: 50px">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ post.user.firstName }}</h5>
-                            <small>{{ post.createdAt|date('d-m-Y') }}</small>
+                    <hr/>
+                    <h3>Vos photos</h3>
+                    <br/>
+                    <div class="container photos">
+                        <div class="row">
+                            <div class="col-12">
+                                {{ form_start(imageForm) }}
+                                {{ form_row(imageForm.imageFile, {'attr': {'class': 'form-control'}}) }}
+                                <button class="btn btn-post">Ajouter</button>
+                                {{ form_end(imageForm)}}
+                            </div>
+                            {% for image in app.user.images  %}
+                                <div class="col-6 marginTop photo">
+                                    <a href="{{ path('images_show', {'id': image.id}) }}">
+                                        <img src="{{ asset("images/" ~ image.imageName)}}" alt={{ image.imageName }} width="100%">
+                                    </a>
+                                </div>
+                            {% endfor %}
                         </div>
-                        <p class="mb-1">{{ post.name }}</p>
-                        <small>{{ post.user.city }}</small>
-                    </a>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="post">
+                        {{ form_start(postForm)}}
+                        {{ form_row(postForm.name)}}
+                        {{ form_row(postForm.imageFile, { 'attr': {'class': 'form-control'}})}}
+                        <button class="btn btn btn-post">Poster</button>
+                        {{ form_end(postForm) }}
+                    </div>
+                    {% for post in posts %}
+                        <div class="list-group">
+                            <div class="container">
+                                <a href="#" class="list-group-item list-group-item-action" aria-current="true" style="margin-top: 50px">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ post.user.firstName }}</h5>
+                                        <small>{{ post.createdAt|date('d-m-Y') }}</small>
+                                    </div>
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <p class="mb-1">{{ post.name }}</p>
+                                        {% if post.imageName %}
+                                            <img src="{{ asset("images/" ~ post.imageName)}}" alt={{ post.imageName }} width="100px">
+                                        {% endif %}
+                                    </div>
+                                    <small>{{ post.user.city }}</small>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-        {% endfor %}
+        </div>
     </div>
+    {% endapply %}
+
 {% endblock %}

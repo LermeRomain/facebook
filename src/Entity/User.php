@@ -6,7 +6,6 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use MongoDB\BSON\Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -84,10 +83,12 @@ class User implements UserInterface
      */
     private $group_name;
 
+    // ... other fields
+
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="avatar", fileNameProperty="imageName", size="imageSize")
+     * @Vich\UploadableField(mapping="images", fileNameProperty="imageName", size="imageSize")
      *
      * @var File|null
      */
@@ -114,10 +115,16 @@ class User implements UserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $images;
+
     public function __construct()
     {
         $this->post = new ArrayCollection();
         $this->updatedAt = new \DateTime();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -360,19 +367,52 @@ class User implements UserInterface
         return $this->imageSize;
     }
 
-    public function serialize()
+    public function __serialize(): array
     {
-        $this->imageFile = base64_encode($this->imageFile);
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password
+            //......
+        ];
     }
 
-    public function unserialize($serialized)
+    public function __unserialize(array $serialized): User
     {
-        $this->imageFile = base64_decode($this->imageFile);
-
+        $this->id = $serialized['id'];
+        $this->email = $serialized['email'];
+        $this->password = $serialized['password'];
+        // .....
+        return $this;
     }
 
-    public function bsonSerialize()
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
     {
-        // TODO: Implement bsonSerialize() method.
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUserId() === $this) {
+                $image->setUserId(null);
+            }
+        }
+
+        return $this;
     }
 }

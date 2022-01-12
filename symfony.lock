@@ -416,7 +416,7 @@
         ]
     },
     "symfony/polyfill-intl-grapheme": {
-        "version": "v1.23.1"
+        "version": "v1.24.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.23.0"
@@ -615,6 +615,12 @@
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
+    },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.4"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.3.5"
     },
     "twig/extra-bundle": {
         "version": "v3.3.4"

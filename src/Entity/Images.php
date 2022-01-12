@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
+use App\Repository\ImagesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
 /**
- * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ORM\Entity(repositoryClass=ImagesRepository::class)
  * @Vich\Uploadable
  */
-class Post
+class Images
 {
     /**
      * @ORM\Id
@@ -19,22 +21,6 @@ class Post
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="post")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -59,46 +45,27 @@ class Post
      */
     private $imageSize;
 
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="images")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->updatedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTime
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTime $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     /**
@@ -146,6 +113,16 @@ class Post
         return $this->imageSize;
     }
 
+    public function setUpdatedAt(?\DateTime $updateAt): void
+    {
+        $this->updatedAt = $updateAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
+
     public function serialize()
     {
         $this->imageFile = base64_encode($this->imageFile);
@@ -157,8 +134,15 @@ class Post
 
     }
 
-    public function bsonSerialize()
+    public function getUser(): ?User
     {
-        // TODO: Implement bsonSerialize() method.
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

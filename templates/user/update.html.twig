@@ -3,17 +3,29 @@
 {% block title %}{{ app.user.firstName }} {{ app.user.lastName }}{% endblock %}
 
 {% block body %}
+    {% apply inline_css %}
+    <html>
+    <head>
+        <style>
+            .vich-image > a > img {
+                width: 20%;
+            }
+            .vich-image > .custom-file > input > button {
+                background-color: black;
+                color: white;
+            }
+        </style>
+    </head>
     <div style=" margin-top: 5rem; padding: 2rem " class="marginDiv">
-        <h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
-
+        {{ form_start(updateUserForm) }}
         <div class="container-fluid row">
             <div class="container col-4">
                 <h1>Modifier mes informations</h1>
-
-                {{ form_start(updateUserForm) }}
                 {{ form_row(updateUserForm.email) }}
                 {{ form_row(updateUserForm.firstName) }}
                 {{ form_row(updateUserForm.lastName) }}
+                {{ form_row(updateUserForm.imageFile, { 'attr': {'class': 'form-control'}}) }}
+
             </div>
             <div class="container col-4">
                 {{ form_row(updateUserForm.birthDate) }}
@@ -25,7 +37,10 @@
         </div>
         <div class="container offset-7">
             <button type="submit" class="btn btn-primary btn-lg">Valdier</button>
-            {{ form_end(updateUserForm) }}
         </div>
+        {{ form_end(updateUserForm) }}
+
+
+    {% endapply %}
 
 {% endblock %}
