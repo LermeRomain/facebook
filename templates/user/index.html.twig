@@ -9,8 +9,9 @@
     <style>
         .cadre {
             width: 200px;
+            margin-bottom: 1rem;
         }
-        .cadre > a > img {
+        .cadre > img {
             border-radius: 100px;
         }
         .btn-outline {
@@ -20,6 +21,7 @@
         .violet {
             color: #8B9DF3;
             border: 1px solid #8B9DF3;
+            width: 100%;
         }
         .align {
             margin-top: 38px;
@@ -49,17 +51,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
                     <figure class="cadre">
-                        <a href="">
                             <img src="{{ asset("images/" ~ app.user.imageName)}}" alt={{ app.user.imageName }} width="100%">
-                        </a>
                     </figure>
                         {{ form_start(avatar) }}
-                                {{ form_row(avatar.imageFile, {'attr': {'class': 'form-control'}}) }}
-
-                                <button type="submit" class="btn btn-outline violet">Valider</button>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-9">
+                                            {{ form_row(avatar.imageFile, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="col-3">
+                                            <button type="submit" class="btn btn-outline violet">Valider</button>
+                                        </div>
+                                    </div>
+                                </div>
                         {{ form_end(avatar) }}
+                    <h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
                     <hr/>
                     <h3>Options</h3>
                     <a class="btn btn-outline me-2" type="button" href="{{ path('update') }}">Modifier mes informations</a>

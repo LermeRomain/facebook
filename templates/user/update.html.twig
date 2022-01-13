@@ -15,15 +15,27 @@
                 color: white;
             }
             .btn-outline {
-                color: #F57C47;
-                border: 1px solid #F57C47;
+                color: white;
+                background-color: #F57C47;
+            }
+            .register {
+                background-color: rgb(245, 124, 71, 30%);
+                padding: 2rem;
+                border-radius: 8px;
+            }
+            .form-group {
+                margin: 0.5rem 0;
+            }
+            h1 {
+                font-size: 3rem;
+                color: #8b9df3;
             }
         </style>
     </head>
-    <div style=" margin-top: 5rem; padding: 2rem " class=" container marginDiv">
+    <div style=" margin-top: 3rem; padding: 2rem " class=" container">
         {{ form_start(updateUserForm) }}
         <h1>Modifier mes informations</h1>
-        <div class="container row">
+        <div class="container row register">
             <div class="col-6">
                 {{ form_row(updateUserForm.email) }}
                 {{ form_row(updateUserForm.firstName) }}

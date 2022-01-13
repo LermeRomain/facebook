@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Images;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\AjoutPostFormType;
 use App\Form\AvatarType;
 use App\Form\ImagesType;
+use App\Form\UserSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,6 +83,41 @@ class UserController extends AbstractController
             'posts' => $posts,
             'postForm' => $form->createView(),
             'imageForm' => $formImage->createView(),
+        ]);
+    }
+
+    public function search(): Response
+    {
+        $search = $this->createForm( UserSearchType::class);
+
+        return $this->render('user/search.html.twig', [
+            'searchform' => $search->createView()
+        ]);
+    }
+
+    /**
+     * @Route("user/{id}", name="one_user", methods={"GET"})
+     */
+    public function show(User $user): Response
+    {
+        return $this->render('user/oneUser.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+
+    public function handleSearch(Request $request ): Response
+    {
+
+        $name = $request->request->get('user_search')['search'];
+
+        $result = $this->getDoctrine()->getRepository(User::class)->findByExampleField($name);
+
+        return $this->render('user/showSearch.html.twig', [
+            'users' => $result
         ]);
     }
 

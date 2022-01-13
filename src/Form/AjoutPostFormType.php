@@ -15,10 +15,16 @@ class AjoutPostFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextareaType::class)
+            ->add('name', TextareaType::class, [
+                'attr' => [
+                    'placeholder' => 'Quoi de neuf ?'
+                ],
+                'label' => false
+            ])
             ->add('imageFile', VichImageType::class, [
                 'attr' => ['class' => 'image'],
-                'required' => false
+                'required' => false,
+                'label' => 'Ajoutez un image'
             ])
         ;
     }

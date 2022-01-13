@@ -1,11 +1,15 @@
-{% extends 'composants/navbar.html.twig' %}
-
-{% block title %}Recherche{% endblock %}
-
-{% block body %}
-
-    <div class="d-grid gap-2 col-6 mx-auto " style="margin-top: 80px">
-        {{ form_start(searchform)}}
+ {{ form_start(searchform, {
+     'attr': {
+        'action': path('search')
+        }
+    })
+ }}
+<div class="row">
+    <div class="col-8">
+        {{ form_widget(searchform.search)}}
     </div>
-
-{% endblock %}
+    <div class="col-4 chercher">
+        <button class="btn btn-outline violet" type="submit">Chercher</button>
+    </div>
+</div>
+ {{ form_end(searchform)}}
