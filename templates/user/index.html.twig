@@ -94,6 +94,11 @@
                     </div>
                 </div>
                 <div class="col-8">
+                    {% for message in app.flashes('message') %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     <div class="post">
                         {{ form_start(postForm)}}
                         {{ form_row(postForm.name)}}

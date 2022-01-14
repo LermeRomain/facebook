@@ -60,7 +60,7 @@
                         <div class="container photos">
                             <div class="row">
                                 {% for image in user.images  %}
-                                    <div class="col-6 photo">
+                                    <div class="col-6 photo" style="margin-top: 2rem">
                                         <a href="{{ path('images_show', {'id': image.id}) }}">
                                             <img src="{{ asset("images/" ~ image.imageName)}}" alt={{ image.imageName }} width="100%">
                                         </a>

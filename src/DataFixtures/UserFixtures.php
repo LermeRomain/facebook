@@ -28,7 +28,6 @@ class UserFixtures extends Fixture
             $user->setLastName($faker->lastName);
             $user->setRoles(['USER_ROLE']);
             $user->setEmail($faker->email);
-            $user->setImageFile($faker->image());
             $user->setAddress($faker->address);
             $user->setCity($faker->city);
             $user->setBirthDate($faker->dateTime);
