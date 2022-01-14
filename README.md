@@ -13,3 +13,8 @@ Fakebook
 - Recherche d'utilisateurs
 - Consultations du profil de tous les utilisateurs et affichage de leurs post
 - Page de menu qui affiche le feed, tous les post dans l'ordre antéchronologique
+
+### Compte de test
+
+Email : test@gmail.com 
+Mot de passe : motdepasse
